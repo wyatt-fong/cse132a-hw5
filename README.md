@@ -23,6 +23,8 @@
 | 2           | 35         | Correlated subqueries, EXISTS → semi-join, RA   |
 | 3           | 35         | Join order, predicate pushdown, projection RA   |
 
+Note that this time the autograder will not be the final grade of your submission (as it is much harder to auto-grade compared to previous assignments). Instead, the autograder will only check if the files are present and if they are formatted correctly.
+
 ------
 
 ## Problem 1: Basic Join Query Optimization [30 pts]

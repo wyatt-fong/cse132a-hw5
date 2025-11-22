@@ -1,4 +1,6 @@
 autograder/
+autograder.zip
+Makefile
 expected/
 HW5.txt
 .DS_Store
