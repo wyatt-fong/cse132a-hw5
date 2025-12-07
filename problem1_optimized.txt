@@ -1,3 +1,8 @@
 -- Problem 1: Optimized logical plan in relational algebra goes here.
 
-
+π_{dname, name, pid} (
+    π_{deptid,dname,location}(σ_{d.location = 'LA'}(DEPARTMENT d))
+        ⋈_{d.deptid = p.deptid} π_{deptid,pid,budget}(σ_{100000 ≤ p.budget ∧ p.budget ≤ 300000}(PROJECT p))
+        ⋈_{p.pid = a.pid} π_{pid, empid}(ASSIGNMENT a)
+        ⋈_{a.empid = e.empid} π_{empid, name, salary}(σ_{e.salary > 80000}(EMPLOYEE e))
+)

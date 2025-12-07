@@ -1,3 +1,11 @@
 -- Problem 3: Explanation (2-5 sentences) of your optimizations goes here.
 
-
+I applied selection pushdown by pushing c.region = 'West', o.amount > 200, and p.category LIKE 'Electronics%' directly
+ to their respective base relations, reducing the number of tuples before any joins occur. Next, I applied projection
+ pushdown so each relation keeps only attributes needed for joins or final output (e.g., Customer keeps cid and cname,
+ Product keeps pid and pname), which reduces tuple width and makes joins more efficient. For join reordering, I grouped
+ the selective relations into two smaller joins—(Customer ⋈ Orders) and (OrderItem ⋈ Product)—and then joined these
+ results, since joining filtered tables first minimizes intermediate result sizes while still respecting the join
+ graph. Join minimization showed that all joins are required because each table contributes either necessary join
+ keys or output attributes. Overall, the optimized plan reduces the number of rows and columns processed at each stage,
+ lowers join costs, and produces a more efficient execution plan.

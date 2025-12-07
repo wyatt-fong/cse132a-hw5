@@ -1,3 +1,26 @@
 -- Problem 3: Initial (naïve) logical plan in relational algebra goes here.
 
 
+SELECT c.cname, p.pname
+FROM Customer c
+JOIN Orders o       ON c.cid = o.cid
+JOIN OrderItem oi   ON o.oid = oi.oid
+JOIN Product p      ON p.pid = oi.pid
+WHERE c.region = 'West'
+  AND p.category LIKE 'Electronics%'
+  AND o.amount > 200;
+
+π_{cname, pname} (
+    σ_{region = 'West' ∧ category LIKE 'Electronics%' ∧ amount > 200 } (
+        (CUSTOMER C ⋈_{c.cid = o.cid} ORDERS o)
+            ⋈_{o.oid = oi.oid} (ORDERITEM oi)
+            ⋈_{p.pid = oi.pid} (PRODUCT p)
+    )
+)
+
+π_{}
+σ_{}
+⋈_{}
+⋉
+∧
+

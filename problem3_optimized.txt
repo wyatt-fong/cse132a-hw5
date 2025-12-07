@@ -1,3 +1,12 @@
 -- Problem 3: Optimized logical plan in relational algebra goes here.
 
 
+π_{cname, pname} (
+    (π_{cname, cid}(σ_{c.region = 'West'}(CUSTOMER C))
+        ⋈_{c.cid = o.cid} π_{cid, oid}(σ_{amount > 200}(ORDERS o))
+    )
+    ⋈_{oid}
+    (π_{oid, pid}(ORDERITEM oi)
+        ⋈_{p.pid = oi.pid} π_{pid, pname}σ(_{category LIKE 'Electronics%'}(PRODUCT p))
+    )
+)

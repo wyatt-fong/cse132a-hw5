@@ -1,3 +1,10 @@
 -- Problem 2: Explanation (2-5 sentences) of your optimizations goes here.
 
-
+I applied selection pushdown to filter tuples early by pushing major = 'CS' to the Student table and dept = 'CS' to
+ the Course table, reducing downstream join sizes. I then rewrote the correlated EXISTS subquery as a semijoin,
+ which avoids constructing unnecessary join results and keeps only students who have at least one matching enrollment
+ in a CS course. Projection pushdown was applied to keep only the attributes needed for joins or final output
+ (sid, sname for Student; sid, cid for Enrollment; cid, dept for Course), reducing tuple width and memory usage.
+ No beneficial join reordering was possible because the Enrollment–Course join must occur before the semijoin with
+ Student, and each relation is required for predicates, join keys, or output. Overall, these optimizations reduce both
+ the number of tuples and the number of attributes processed, resulting in a more efficient plan.

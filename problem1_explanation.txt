@@ -1,3 +1,18 @@
 -- Problem 1: Explanation (2-5 sentences) of your optimizations goes here.
 
+I applied selection pushdown to reduce the number of tuples early by pushing each σ to the base relation where its
+ attributes originate. This reduces the cost of all downstream joins.
 
+I applied projection pushdown to remove unnecessary attributes early. Each base relation keeps only attributes needed
+ for output, selections, or join conditions, reducing tuple width and memory requirements during joins.
+
+I applied join reordering using associativity and commutativity. After pushdown, DEPARTMENT, PROJECT, and EMPLOYEE
+ are small, while ASSIGNMENT is large. The optimal legal join order is to join selective relations first and delay
+ joining ASSIGNMENT. EMPLOYEE must follow ASSIGNMENT due to the join key.
+
+Join minimization found that all joins are required, because ASSIGNMENT is needed to connect PROJECT and EMPLOYEE,
+ and each table contributes essential attributes for filtering or final output.
+
+Overall, the optimized plan is better because it minimizes intermediate relation sizes both in terms of number of
+ rows (via selection pushdown) and column width (via projection pushdown), while keeping the join order that minimizes
+ the size of intermediate join results.
